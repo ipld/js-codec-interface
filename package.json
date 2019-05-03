@@ -1,6 +1,6 @@
 {
   "name": "@ipld/codec-interface",
-  "version": "1.0.0",
+  "version": "0.0.0-dev",
   "description": "``` npm install @ipld/codec-interface ```",
   "main": "index.js",
   "directories": {
