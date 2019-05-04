@@ -1,7 +1,7 @@
 {
   "name": "@ipld/codec-interface",
   "version": "0.0.0-dev",
-  "description": "``` npm install @ipld/codec-interface ```",
+  "description": "Codec interface for IPLD.",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -24,10 +24,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ipld/js-ipld-codec-interface.git"
+    "url": "git+https://github.com/ipld/js-codec-interface.git"
   },
   "bugs": {
-    "url": "https://github.com/ipld/js-ipld-codec-interface/issues"
+    "url": "https://github.com/ipld/js-codec-interface/issues"
   },
-  "homepage": "https://github.com/ipld/js-ipld-codec-interface#readme"
+  "homepage": "https://github.com/ipld/js-codec-interface#readme"
 }
