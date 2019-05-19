@@ -10,7 +10,7 @@ action "Build" {
 
 action "Test" {
   needs = ["Build"]
-  uses = "actions/npm@master"
+  uses = "ianwalter/puppeteer@master"
   args = "test"
 }
 
