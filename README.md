@@ -43,9 +43,11 @@ Returns a full `Codec Interface` based on your encode and decode implementations
 
 ## Reader()
 
-### Reader.get(path)
+### Reader.get(path
 
 ### Reader.links()
+
+Returns a generator of all the links in the block.
 
 ### Reader.tree()
 
