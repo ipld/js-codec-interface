@@ -33,6 +33,15 @@ test('get path', async () => {
   assert.ok(CID.isCID(incomplete.value))
 })
 
+test('source optimization', async () => {
+  let reader = await mock.reader({ source: () => fixture })
+  let one = reader.get('/a/1').value
+  same(one, 1)
+  reader = await mock.reader({ source: () => null, decode: () => fixture })
+  one = reader.get('/a/1').value
+  same(one, 1)
+})
+
 test('links', async () => {
   let reader = await getReader()
   let links = Array.from(reader.links())
