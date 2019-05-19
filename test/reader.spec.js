@@ -1,7 +1,7 @@
 'use strict'
+/* globals it */
 const { CodecInterface } = require('../')
 const CID = require('cids')
-const { it } = require('mocha')
 const assert = require('assert')
 const tsame = require('tsame')
 
