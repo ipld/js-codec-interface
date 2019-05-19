@@ -11,6 +11,7 @@ action "Build" {
 action "Test" {
   needs = ["Build"]
   uses = "ianwalter/puppeteer@master"
+  runs = "npm"
   args = "test"
 }
 
