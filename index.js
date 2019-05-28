@@ -86,11 +86,11 @@ class CodecInterface {
     this.decode = decode
     Object.defineProperty(this, 'codec', { get: () => codec, set: readonly })
   }
-  async reader (block) {
+  reader (block) {
     // Skip a decoding if the source is available.
     if (block.source && block.source()) return new Reader(block.source())
     // Full decoding is required for the standard Reader interface
-    let decoded = await block.decode()
+    let decoded = block.decode()
     return new Reader(decoded)
   }
 }

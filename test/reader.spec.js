@@ -25,7 +25,7 @@ const mock = new CodecInterface()
 const getReader = () => mock.reader({ decode: () => fixture })
 
 test('get path', async () => {
-  let reader = await getReader()
+  let reader = getReader()
   let one = reader.get('/a/1').value
   same(one, 1)
   let incomplete = reader.get('l/one/two')
@@ -34,16 +34,16 @@ test('get path', async () => {
 })
 
 test('source optimization', async () => {
-  let reader = await mock.reader({ source: () => fixture })
+  let reader = mock.reader({ source: () => fixture })
   let one = reader.get('/a/1').value
   same(one, 1)
-  reader = await mock.reader({ source: () => null, decode: () => fixture })
+  reader = mock.reader({ source: () => null, decode: () => fixture })
   one = reader.get('/a/1').value
   same(one, 1)
 })
 
 test('links', async () => {
-  let reader = await getReader()
+  let reader = getReader()
   let links = Array.from(reader.links())
   let keys = new Set(links.map(a => a[0]))
   same(keys, new Set([ 'a/2', 'a/4/l', 'l', 'o/l' ]))
@@ -51,7 +51,7 @@ test('links', async () => {
 })
 
 test('tree', async () => {
-  let reader = await getReader()
+  let reader = getReader()
   let tree = Array.from(reader.tree())
   same(new Set(tree), new Set([
     'a',
@@ -71,7 +71,7 @@ test('tree', async () => {
 })
 
 test('property not found', async () => {
-  let reader = await getReader()
+  let reader = getReader()
   let threw = false
   try {
     reader.get('notfound')

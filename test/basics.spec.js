@@ -36,8 +36,8 @@ test('test create', async () => {
 
 test('test encode/decode', async () => {
   let codec = create()
-  let buffer = await codec.encode({ hello: 'world' })
-  let obj = await codec.decode(buffer)
+  let buffer = codec.encode({ hello: 'world' })
+  let obj = codec.decode(buffer)
   same(obj, { hello: 'world' })
 })
 
