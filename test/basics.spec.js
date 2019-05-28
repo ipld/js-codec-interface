@@ -9,7 +9,7 @@ const same = (...args) => assert.ok(tsame(...args))
 const test = it
 
 /* very bad dag codec for testing */
-const encode = async obj => {
+const encode = obj => {
   for (let key of Object.keys(obj)) {
     if (key.startsWith('link:')) {
       obj[key] = obj[key].toBaseEncodedString()
@@ -18,7 +18,7 @@ const encode = async obj => {
   let str = JSON.stringify(obj)
   return Buffer.from(str)
 }
-const decode = async buffer => {
+const decode = buffer => {
   let obj = JSON.parse(buffer.toString())
   for (let key of Object.keys(obj)) {
     if (key.startsWith('link:')) {
