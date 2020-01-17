@@ -1,5 +1,7 @@
 # Install
 
+![64385](https://img.shields.io/badge/compiled%20bundle-64k-yellowgreen) ![18795](https://img.shields.io/badge/gzipped%20bundle-19k-yellowgreen)
+
 ```
 npm install @ipld/codec-interface
 ```
