@@ -14,12 +14,12 @@
   "author": "Mikeal Rogers <mikeal.rogers@gmail.com> (https://www.mikealrogers.com/)",
   "license": "(Apache-2.0 AND MIT)",
   "devDependencies": {
-    "aegir": "^18.2.2",
-    "hundreds": "0.0.1",
+    "aegir": "^20.5.1",
+    "hundreds": "0.0.2",
     "tsame": "^2.0.1"
   },
   "dependencies": {
-    "cids": "~0.6.0"
+    "cids": "~0.7.2"
   },
   "repository": {
     "type": "git",
