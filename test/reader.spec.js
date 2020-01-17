@@ -24,16 +24,16 @@ const mock = new CodecInterface()
 
 const getReader = () => mock.reader({ decode: () => fixture })
 
-test('get path', async () => {
-  let reader = getReader()
-  let one = reader.get('/a/1').value
+test('get path', () => {
+  const reader = getReader()
+  const one = reader.get('/a/1').value
   same(one, 1)
-  let incomplete = reader.get('l/one/two')
+  const incomplete = reader.get('l/one/two')
   same(incomplete.remaining, 'one/two')
   assert.ok(CID.isCID(incomplete.value))
 })
 
-test('source optimization', async () => {
+test('source optimization', () => {
   let reader = mock.reader({ source: () => fixture })
   let one = reader.get('/a/1').value
   same(one, 1)
@@ -42,17 +42,17 @@ test('source optimization', async () => {
   same(one, 1)
 })
 
-test('links', async () => {
-  let reader = getReader()
-  let links = Array.from(reader.links())
-  let keys = new Set(links.map(a => a[0]))
-  same(keys, new Set([ 'a/2', 'a/4/l', 'l', 'o/l' ]))
+test('links', () => {
+  const reader = getReader()
+  const links = Array.from(reader.links())
+  const keys = new Set(links.map(a => a[0]))
+  same(keys, new Set(['a/2', 'a/4/l', 'l', 'o/l']))
   links.forEach(l => assert.ok(CID.isCID(l[1])))
 })
 
-test('tree', async () => {
-  let reader = getReader()
-  let tree = Array.from(reader.tree())
+test('tree', () => {
+  const reader = getReader()
+  const tree = Array.from(reader.tree())
   same(new Set(tree), new Set([
     'a',
     'a/0',
@@ -70,8 +70,8 @@ test('tree', async () => {
   ]))
 })
 
-test('property not found', async () => {
-  let reader = getReader()
+test('property not found', () => {
+  const reader = getReader()
   let threw = false
   try {
     reader.get('notfound')

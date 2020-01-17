@@ -10,17 +10,17 @@ const test = it
 
 /* very bad dag codec for testing */
 const encode = obj => {
-  for (let key of Object.keys(obj)) {
+  for (const key of Object.keys(obj)) {
     if (key.startsWith('link:')) {
       obj[key] = obj[key].toBaseEncodedString()
     }
   }
-  let str = JSON.stringify(obj)
+  const str = JSON.stringify(obj)
   return Buffer.from(str)
 }
 const decode = buffer => {
-  let obj = JSON.parse(buffer.toString())
-  for (let key of Object.keys(obj)) {
+  const obj = JSON.parse(buffer.toString())
+  for (const key of Object.keys(obj)) {
     if (key.startsWith('link:')) {
       obj[key] = new CID(obj[key])
     }
@@ -30,19 +30,19 @@ const decode = buffer => {
 
 const create = () => _codec.create(encode, decode, 'terrible-dag')
 
-test('test create', async () => {
+test('test create', () => {
   create()
 })
 
-test('test encode/decode', async () => {
-  let codec = create()
-  let buffer = codec.encode({ hello: 'world' })
-  let obj = codec.decode(buffer)
+test('test encode/decode', () => {
+  const codec = create()
+  const buffer = codec.encode({ hello: 'world' })
+  const obj = codec.decode(buffer)
   same(obj, { hello: 'world' })
 })
 
-test('test codec property', async () => {
-  let codec = create()
+test('test codec property', () => {
+  const codec = create()
   same(codec.codec, 'terrible-dag')
   let threw = false
   try {

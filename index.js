@@ -3,16 +3,16 @@ const CID = require('cids')
 
 /* eslint-disable max-depth */
 const links = function * (decoded, path = []) {
-  for (let key of Object.keys(decoded)) {
-    let _path = path.slice()
+  for (const key of Object.keys(decoded)) {
+    const _path = path.slice()
     _path.push(key)
-    let val = decoded[key]
+    const val = decoded[key]
     if (val && typeof val === 'object') {
       if (Array.isArray(val)) {
         for (let i = 0; i < val.length; i++) {
-          let __path = _path.slice()
+          const __path = _path.slice()
           __path.push(i)
-          let o = val[i]
+          const o = val[i]
           if (CID.isCID(o)) {
             yield [__path.join('/'), o]
           } else if (typeof o === 'object') {
@@ -31,17 +31,17 @@ const links = function * (decoded, path = []) {
 }
 
 const tree = function * (decoded, path = []) {
-  for (let key of Object.keys(decoded)) {
-    let _path = path.slice()
+  for (const key of Object.keys(decoded)) {
+    const _path = path.slice()
     _path.push(key)
     yield _path.join('/')
-    let val = decoded[key]
+    const val = decoded[key]
     if (val && typeof val === 'object' && !CID.isCID(val)) {
       if (Array.isArray(val)) {
         for (let i = 0; i < val.length; i++) {
-          let __path = _path.slice()
+          const __path = _path.slice()
           __path.push(i)
-          let o = val[i]
+          const o = val[i]
           yield __path.join('/')
           if (typeof o === 'object' && !CID.isCID(o)) {
             yield * tree(o, __path)
@@ -55,26 +55,34 @@ const tree = function * (decoded, path = []) {
 }
 /* eslint-enable max-depth */
 
-const readonly = () => { throw new Error('Read-only property') }
+const readonly = () => {
+  throw new Error('Read-only property')
+}
 
 class Reader {
   constructor (decoded) {
-    Object.defineProperty(this, 'decoded', { get: () => decoded, set: readonly })
+    Object.defineProperty(this, 'decoded', {
+      get: () => decoded,
+      set: readonly
+    })
   }
+
   get (path) {
     let node = this.decoded
     path = path.split('/').filter(x => x)
     while (path.length) {
-      let key = path.shift()
-      if (node[key] === undefined) throw new Error(`Object has no property ${key}`)
+      const key = path.shift()
+      if (node[key] === undefined) { throw new Error(`Object has no property ${key}`) }
       node = node[key]
       if (CID.isCID(node)) return { value: node, remaining: path.join('/') }
     }
     return { value: node }
   }
+
   links () {
     return links(this.decoded)
   }
+
   tree () {
     return tree(this.decoded)
   }
@@ -86,11 +94,12 @@ class CodecInterface {
     this.decode = decode
     Object.defineProperty(this, 'codec', { get: () => codec, set: readonly })
   }
+
   reader (block) {
     // Skip a decoding if the source is available.
     if (block.source && block.source()) return new Reader(block.source())
     // Full decoding is required for the standard Reader interface
-    let decoded = block.decode()
+    const decoded = block.decode()
     return new Reader(decoded)
   }
 }
