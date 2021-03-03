@@ -3,9 +3,9 @@
 const _codec = require('../')
 const CID = require('cids')
 const assert = require('assert')
-const tsame = require('tsame')
+const { Buffer } = require('buffer')
+const { expect } = require('aegir/utils/chai')
 
-const same = (...args) => assert.ok(tsame(...args))
 const test = it
 
 /* very bad dag codec for testing */
@@ -38,17 +38,17 @@ test('test encode/decode', () => {
   const codec = create()
   const buffer = codec.encode({ hello: 'world' })
   const obj = codec.decode(buffer)
-  same(obj, { hello: 'world' })
+  expect(obj).to.deep.equal({ hello: 'world' })
 })
 
 test('test codec property', () => {
   const codec = create()
-  same(codec.codec, 'terrible-dag')
+  expect(codec).to.have.property('codec', 'terrible-dag')
   let threw = false
   try {
     codec.codec = 'blah'
   } catch (e) {
-    same(e.message, 'Read-only property')
+    expect(e).to.have.property('message', 'Read-only property')
     threw = true
   }
   assert(threw)
